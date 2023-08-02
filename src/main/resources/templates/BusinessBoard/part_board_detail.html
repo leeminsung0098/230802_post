@@ -1,0 +1,401 @@
+<!doctype html>
+<html layout:decorate="~{layout}"
+      lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/userBoard_businessBoard/detail.css}">
+    <title>방게!</title>
+</head>
+<body layout:fragment="content">
+<!--    최상단을 표시하기위한 -->
+<div id="scrolltop"></div>
+<div class="form">
+    <!--  머리부분 로그인 회원가입 등 시작-->
+    <div class=board_head>
+        <div class=board_tap>
+            <a class="logo" th:href="@{/UserBoard/main}">
+                <div>
+                    <p>방게</p>
+                    <p>방구석인테리어 게시판 </p>
+                </div>
+            </a>
+            <a class="logo_base" th:href="@{/UserBoard/main}">
+                <div>
+                    <p>유저게시판</p>
+                </div>
+            </a>
+            <a class="logo_base select" th:href="@{/BusinessBoard/home}">
+                <div>
+                    <p>사업자 게시판</p>
+                </div>
+            </a>
+            <a class="logo_base" th:href="@{/Store/}">
+                <div>
+                    <p>스토어</p>
+                </div>
+            </a>
+        </div>
+        <div class="board_login" sec:authorize="isAnonymous()">
+            <a  class="login"   th:href="@{/user/login}">
+                <div>
+                    <p >로그인</p>
+                </div>
+            </a>
+            /
+            <a th:href="@{/user/Initiation_General}" class="signup">
+                <div>
+                    <p>회원가입</p>
+                </div>
+            </a>
+        </div>
+        <div class="board_login" sec:authorize="isAuthenticated()">
+            <!--        sec:authorize="isAuthenticated()" 로그인 성공시 나오게 하는 코드       -->
+            <a  class="login" th:href="@{/user/logout}">
+                <div>
+                    <p >로그아웃</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--  머리부분 로그인 회원가입 등 끝-->
+    <hr>
+    <!--  상단 nav바 시작-->
+    <nav class="top_nav">
+        <a  th:href="@{/BusinessBoard/home}" >
+            <div>
+                <p>홈</p>
+            </div>
+        </a>
+        <a th:href="@{/BusinessBoard/part}"  class="select">
+            <div>
+                <p>부분공사</p>
+            </div>
+        </a>
+        <a th:href="@{/BusinessBoard/integral}">
+            <div>
+                <p>전체공사</p>
+            </div>
+        </a>
+        <a th:href="@{/BusinessBoard/event}">
+            <div>
+                <p>이벤트</p>
+            </div>
+        </a>
+        <a th:href="@{/BusinessBoard/home}">
+            <div>
+                <p>업체퀵링크
+                </p>
+                <!--                <ul class = "qik">-->
+                <!--                    <li class="qik_in"><a th:href="@{/BusinessBoard/home}"> 업체1 </a></li>-->
+                <!--                    <li class="qik_in"><a th:href="@{/BusinessBoard/home}"> 업체2 </a></li>-->
+                <!--                    <li class="qik_in"><a th:href="@{/BusinessBoard/home}"> 업체3 </a></li>-->
+                <!--                </ul>-->
+            </div>
+        </a>
+    </nav>
+    <!--  상단 nav바 끝 -->
+    <!--유저 게시판 작성 구현 시작-->
+
+    <div class="free_notice_board">
+        <ul>
+            <li>부분공사 게시판</li>
+        </ul>
+
+    </div>
+    <br>
+    <hr style="border: solid 1px black;">
+    <br>
+
+    <table class="user_board">
+        <thead class="user_board_title">
+        <tr>
+            <!--      제목추가용 -->
+            <th th:utext="${board.title}"></th>
+        </tr>
+        </thead>
+    </table>
+    <br>
+    <hr style="border: solid 1px black;">
+    <br>
+    <table class="user_board">
+        <thead class="user_board_title">
+        <tr>
+            <!--      내용추가용-->
+            <th th:utext="${board.content}"></th>
+        </tr>
+
+        </thead>
+        <tbody>
+    </table>
+    <div class="sign_ui">
+        <li class="sign" >
+            <a href="javascript:void(0);"class ="recommend"
+               th:data-uri="@{|/BusinessBoard/vote/${board.id}|}">
+                <button class="button button--winona button--border-thin button--round-s"
+                        sec:authorize="isAuthenticated()"
+                        th:data-text="${#lists.size(board.voter)}">
+                    <span>추천</span>
+                </button>
+            </a></li>
+        <li class="sign" sec:authorize="isAuthenticated()">
+            <a th:href="@{|/BusinessBoard/Board_Modify/${board.id}|}"
+               th:if="${board.author != null and #authentication.name == board.author.loginId}">
+                <button class="button button--winona button--border-thin button--round-s" data-text="수정">
+                    <span>수정</span>
+                </button>
+            </a>
+        </li>
+
+        <li class="sign" sec:authorize="isAuthenticated()">
+            <a href="javascript:void(0);"   class="delete"
+               th:data-uri="@{|/BusinessBoard/delete/${board.id}|}"
+               th:if="${board.author != null and #authentication.name == board.author.loginId}">
+                <button class="button button--winona button--border-thin button--round-s"
+                        data-text="삭제">
+                    <span>삭제</span>
+                </button>
+            </a>
+        </li>
+    </div>
+    <br>
+    <br>
+    <hr style="border: solid 1px black;">
+    <br>
+    <br>
+    <hr style="border: solid 1px black;">
+    <table class="puser_board">
+        <!--댓글구현시작-->
+        <thead class="comment">
+        <p class = "commentTitle">댓글</p>
+        <!--    댓글 출력시작 -->
+        <!--    <ul class="comment_detali"  th:each="comment : ${board.commentList}">-->
+        <ul class="comment_detali" th:each="comment, loop : ${paging_Comment}">
+            <li>
+                <div>
+                    <div class="commentn">
+                        <!--        닉네임-->
+                        <p th:text="${comment.author.nickname}"></p>
+                    </div>
+                    <div class="commentt">
+                        <!--            댓글-->
+                        <p th:text="${comment.content}"></p>
+                    </div>
+                    <div class="sign" sec:authorize="isAuthenticated()">
+                        <!--                        <input type="hidden" id="comment_id" name="comment_id" th:value="${comment.id}">-->
+                        <a href="javascript:void(0);" class="delete"
+                           th:data-uri="@{|/Comment/delete/${comment.id}|}"
+                           th:if="${comment.author != null and #authentication.name == comment.author.loginId}">
+                            <button class="button button--winona button--border-thin button--round-s"
+                                    data-text="삭제">
+                                <span>삭제</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            </li>
+            <!--      날짜-->
+            <li class="commentd"
+                th:text="${#temporals.format(comment.createDate, 'yyyy-MM-dd HH:mm')}">
+            </li>
+
+        </ul>
+
+
+        <!--댓글박스 구현 시작-->
+        <form th:action="@{|/Comment/create/${board.id}|}" th:object="${commentForm}" method="post">
+            <div class="textLogin">
+                <div class="cmtContent">
+                    <textarea th:field="*{content}" style="resize: vertical;" class="textareaIME"></textarea>
+                </div>
+                <div class="cmtSubmit">
+                    <input type="submit" class="cmtSubmit2" value="등록">
+                </div>
+            </div>
+            <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        </form>
+        <!--댓글박스 구현 끝-->
+
+        </thead>
+        <!--    댓글의 번호를 출력하기위한 용도 시작-->
+        <div class="button_search" th:if="${!paging_Comment.isEmpty()}">
+            <ul>
+                <!--            이전버튼-->
+                <li class="page-item" th:classappend="${!paging_Comment.hasPrevious} ? 'disabled'">
+                    <div class="frame page-link"
+                         href="javascript:void(0)"
+                         th:data-page="${paging_Comment.number-1}">
+                        <button class="custom-btn btn-3">
+                            <span>이전 페이지</span>
+                        </button>
+                    </div>
+                </li>
+                <!--          페이지 획수재한-->
+                <li th:each="page: ${#numbers.sequence(0, paging_Comment.totalPages-1)}"
+                    th:if="${page >= paging_Comment.number-5 and page <= paging_Comment.number+5}"
+                    th:classappend="${page == paging_Comment.number} ? 'active'"
+                    class="page-item frame">
+                    <a th:text="${page}" class="page-link"
+                       href="javascript:void(0)" th:data-page="${page}"></a>
+                </li>
+                <!--            다음페이지버튼-->
+                <li class="page-item" th:classappend="${!paging_Comment.hasNext} ? 'disabled'">
+                    <div class="frame page-link"
+                         href="javascript:void(0)"
+                         th:data-page="${paging_Comment.number+1}">
+                        <button class="custom-btn btn-3">
+                            <span>다음 페이지</span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+            <!--            찾는용도 끝 -->
+            <!--      "@{|/UserBoard/free_Board_Detail/${board.id}|}"-->
+        </div>
+        <form th:action="@{|/UserBoard/free_Board_Detail/${board.id}|}" method="get" id="searchForm">
+            <!--      <input type="hidden" id="kw" name="kw" th:value="${kw}">-->
+            <input type="hidden" id="page" name="page" th:value="${paging_Comment.number}">
+        </form>
+        <!--    댓글의 번호를 출력하기위한 용도 끝-->
+        <!--댓글구현끝-->
+        <tbody>
+    </table>
+    <br>
+    <br>
+    <hr style="border: solid 1px black;">
+    <br>
+    <br>
+
+    <!--유저 게시판 리스트 구현 끝-->
+</div>
+<!--    최하단을 표시하기위한 -->
+<div id="scrollbottom"></div>
+
+
+<!--우측 네비게이션용 시작-->
+<div class= "popup_body">
+    <nav class = "popup_nav">
+
+        <a href="#scrolltop" rel="nofollow" >
+            <button class ="nav_button nav_top">
+                TOP
+            </button>
+        </a>
+
+        <button class ="nav_button"
+                id="global_chat_open"
+                ype="buttont">
+            전체 채팅
+        </button>
+
+        <button class ="nav_button" >유저<p>게시판 </button>
+        <button class ="nav_button" >사업자<p>게시판 </button>
+        <button class ="nav_button" >스토어 </button>
+        <button class ="nav_button" >개인 채팅 </button>
+        <a href="#scrollbottom" rel="nofollow" >
+            <button class ="nav_button nav_down">
+                DOWN
+            </button>
+        </a>
+
+
+
+    </nav>
+</div>
+<!--우측 네비게이션용 끝  -->
+
+<!--전체 챗화면 시작 스크립트 사용유의-->
+<div class="draggable_chat">
+    <!--  상단바     -->
+    <div class="chat_top_var">
+        <p>전체채팅창</p>
+        <button id="chat_close" type="button">X</button>
+    </div>
+    <!--  하단 챗부분 전송과 채팅창    -->
+    <div class="chat_main">
+        <div class="chat_body" id ="msgArea">
+        </div>
+
+        <div class="input_body">
+            <input type="text" id="msg">
+            <button type="button" id="button-send">전송</button>
+        </div>
+    </div>
+
+</div>
+<!--전체 챗화면 끝 스크립트 사용유의-->
+</body>
+<script layout:fragment="script" type='text/javascript'>
+    // 채팅창 움직이기용 시작
+const draggableElementChat = document.querySelector('.draggable_chat');
+let isDraggingChat = false;
+let offsetXChat = 0;
+let offsetYChat = 0;
+
+draggableElementChat.addEventListener('mousedown', function(event) {
+  isDraggingChat = true;
+  offsetXChat = event.clientX - draggableElementChat.getBoundingClientRect().left;
+  offsetYChat = event.clientY - draggableElementChat.getBoundingClientRect().top;
+});
+
+document.addEventListener('mousemove', function(event) {
+  if (isDraggingChat) {
+    const x = event.clientX - offsetXChat;
+    const y = event.clientY - offsetYChat;
+    draggableElementChat.style.left = x + 'px';
+    draggableElementChat.style.top = y + 'px';
+  }
+});
+
+document.addEventListener('mouseup', function() {
+  isDraggingChat = false;
+});
+// 채팅창 움직이기 끝
+
+
+
+// 채팅창 종료혹은 숨김처리 시작
+const chatCloseButton = document.getElementById("chat_close");
+chatCloseButton.addEventListener('click',()=>{
+  draggableElementChat.style.display= "none"
+})
+// 채팅창 종료혹은 숨김처리 끝
+
+
+//챗팅창 켜기 시작
+const globalChatOpen = document.getElementById("global_chat_open");
+globalChatOpen.addEventListener('click',()=>{
+  draggableElementChat.style.display = "block"
+})
+// 채팅창켜기 끝
+//삭제
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+//삭제
+//추천관련 스크립트시작
+            const recommend_elements = document.getElementsByClassName("recommend");
+            Array.from(recommend_elements).forEach(function(element) {
+                element.addEventListener('click', function() {
+                    if(confirm("정말로 추천하시겠습니까?")) {
+                        location.href = this.dataset.uri;
+                    };
+                });
+            });
+//추천관련 스크립트 끝
+
+</script>
+
+</html>
+

@@ -1,0 +1,505 @@
+<!doctype html>
+<html layout:decorate="~{layout}"
+      lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/create_board.css}">
+    <title>방게!</title>
+</head>
+<body layout:fragment="content">
+<!-- 최상단을 표시하기위한 div -->
+<div id="scrolltop"></div>
+<div class="form">
+    <!--  머리부분 로그인 회원가입 등 시작-->
+    <div class=board_head>
+        <div class=board_tap>
+            <a class="logo" th:href="@{/UserBoard/main}">
+                <div>
+                    <p>방게</p>
+                    <p>방구석인테리어 게시판 </p>
+                </div>
+            </a>
+            <a class="logo_base select" th:href="@{/UserBoard/main}">
+                <div>
+                    <p>유저게시판</p>
+                </div>
+            </a>
+            <a class="logo_base" th:href="@{/BusinessBoard/home}">
+                <div>
+                    <p>사업자 게시판</p>
+                </div>
+            </a>
+            <a class="logo_base" th:href="@{/Store/}">
+                <div>
+                    <p>스토어</p>
+                </div>
+            </a>
+        </div>
+        <div class="board_login" sec:authorize="isAnonymous()">
+            <a class="login" th:href="@{/user/login}">
+                <div>
+                    <p>로그인</p>
+                </div>
+            </a>
+            /
+            <a th:href="@{/user/Initiation_General}" class="signup">
+                <div>
+                    <p>회원가입</p>
+                </div>
+            </a>
+        </div>
+        <div class="board_login" sec:authorize="isAuthenticated()">
+            <!--        sec:authorize="isAuthenticated()" 로그인 성공시 나오게 하는 코드       -->
+            <a class="login" th:href="@{/user/logout}">
+                <div>
+                    <p>로그아웃</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <!--  머리부분 로그인 회원가입 등 끝-->
+    <hr>
+    <!--  상단 nav바 시작-->
+    <nav class="top_nav">
+        <a th:href="@{/UserBoard/main}">
+            <div>
+                <p>홈</p>
+            </div>
+        </a>
+        <a th:href="@{/UserBoard/review}">
+            <div>
+                <p>리뷰</p>
+            </div>
+        </a>
+        <a th:href="@{/UserBoard/question}">
+            <div>
+                <p>질문</p>
+            </div>
+        </a>
+        <a th:href="@{/UserBoard/tip}" class="select">
+            <div>
+                <p>팁</p>
+            </div>
+        </a>
+        <a th:href="@{/UserBoard/free_Board}">
+            <div>
+                <p>자유게시판</p>
+            </div>
+        </a>
+        <a th:href="@{/UserBoard/tendency}">
+            <div>
+                <p>인테리어
+                <p>성향 테스트</p>
+                </p>
+            </div>
+        </a>
+        <a href="#" id="comparison_open">
+            <div>
+                <p>조명색비교 </p>
+            </div>
+        </a>
+        <a href="#" id="continence_open">
+            <div>
+                <p>업체별
+                <p>자제패턴</p>
+                </p>
+            </div>
+        </a>
+    </nav>
+    <!--  상단 nav바 끝 -->
+
+    <!--  작업시작-->
+    <!--유저 게시판 리스트 구현 시작-->
+    <div class="free_notice_board">
+        <ul>
+            <li>게시판 수정</li>
+        </ul>
+    </div>
+    <br>
+    <hr style="border: solid 1px black;">
+    <br>
+
+    <form th:object="${boardCreateForm}" method="post">
+        <input type="hidden" th:name="${parameterName}" th:value="${token}"/>
+        <!-- 여기서부터 제목 -->
+        <div>
+            <input type="text"
+                   th:field="*{title}"
+                   class="input_title"
+                   placeholder="제목을 입력하세요"/>
+        </div>
+        <br>
+        <hr style="border: solid 1px rgb(180, 180, 180);">
+        <br>
+        <!-- 여기서부터 바디시작 -->
+        <div>
+            <input id="summernote"
+                   class="input_content"/>
+            <input type="text"
+                   th:field="*{content}"
+                   class="input_content"
+                   placeholder="나중에 api로 대체될예정"/>
+        </div>
+        <br>
+        <hr style="border: solid 1px black;">
+
+        <!--게시물  저장버튼 구현 시작-->
+        <div class="button_search frame">
+            <input type="submit" value="저장" class="custom-btn btn-3">
+
+        </div>
+        <!--게시물  버튼 및 찾기 구현 끝-->
+        <!--  작업끝 -->
+    </form>
+
+
+</div>
+<!-- 가장아래를 표시하기위한 div  -->
+<div id="scrollbottom"></div>
+<!--우측 네비게이션용 시작-->
+<div class="popup_body">
+    <nav class="popup_nav">
+
+        <a href="#scrolltop" rel="nofollow">
+            <button class="nav_button nav_top">
+                TOP
+            </button>
+        </a>
+
+        <button class="nav_button" id="global_chat_open" ype="buttont">
+            전체 채팅
+        </button>
+
+        <button class="nav_button">유저<p>게시판</button>
+        <button class="nav_button">사업자<p>게시판</button>
+        <button class="nav_button">스토어</button>
+        <button class="nav_button">개인 채팅</button>
+        <a href="#scrollbottom" rel="nofollow">
+            <button class="nav_button nav_down">
+                DOWN
+            </button>
+        </a>
+
+    </nav>
+</div>
+<!--우측 네비게이션용 끝  -->
+<!--전체 챗화면 시작 스크립트 사용유의-->
+<div class="draggable_chat">
+    <!--  상단바     -->
+    <div class="chat_top_var">
+        <p>전체채팅창</p>
+        <button id="chat_close" type="button">X</button>
+    </div>
+    <!--  하단 챗부분 전송과 채팅창    -->
+    <div class="chat_main">
+        <div class="chat_body" id ="msgArea">
+        </div>
+
+        <div class="input_body">
+            <input type="text" id="msg">
+            <button type="button" id="button-send">전송</button>
+        </div>
+    </div>
+
+</div>
+<!--전체 챗화면 끝 스크립트 사용유의-->
+<!--색온도 팝업창 시작 스크립트 사용유의-->
+<div class="draggable_comparison">
+    <!--  상단바     -->
+    <div class="comparison_top_var">
+        <p>색온도</p>
+        <button id="comparison_close" type="button">X</button>
+    </div>
+    <!--  조명색비교-->
+    <div class="comparison_color">
+        <div class="comparison_img">
+            <img src="https://www.zipdeco.co.kr/upload/2020/03/24/EDITOR_202003240252511210_rQBAG" alt="">
+        </div>
+        <ul>
+            <li>
+                <label class="comparison-parent-span">
+                    <input class="input-position" id="cb_input1" role="switch" type="checkbox"
+                           onchange="toggleColor(1)"/>
+                    <span>주광색</span>
+                </label>
+            </li>
+            <li>
+                <label class="comparison-parent-span">
+                    <input class="input-position" id="cb_input2" role="switch" type="checkbox"
+                           onchange="toggleColor(2)"/>
+                    <span>주백색</span>
+                </label>
+            </li>
+            <li>
+                <label class="comparison-parent-span">
+                    <input class="input-position" id="cb_input3" role="switch" type="checkbox"
+                           onchange="toggleColor(3)"/>
+                    <span>전구색</span>
+                </label>
+            </li>
+        </ul>
+        <p id="currentTemperature">현재 색온도()</p>
+    </div>
+    <!--  조명색비교 끝-->
+
+</div>
+<!--색온도 팝업창 끝 스크립트 사용유의-->
+<!--업체별 자제패턴 팝업창 시작-->
+<div class="draggable_continence">
+    <!--  상단바     -->
+    <div class="popup_top_var">
+        <p>팝업창</p>
+        <button id="continence_close" type="button">X</button>
+    </div>
+    <p class="pat">인테리어 패턴</p>
+    <div class="pattern">
+        <img src="https://i.pinimg.com/736x/5b/06/8f/5b068fb68befe23aa652159febcc0950.jpg">
+    </div>
+    <div class="pat_in">
+        <div class="pat_name">
+            <select class="p_p">
+                <option value="item1">업체 1</option>
+                <option value="item2">업체 2</option>
+                <option value="item3">업체 3</option>
+                <option value="item4">업체 4</option>
+            </select>
+        </div>
+        <div class="pat_chart">
+            <select class="p_p">
+                <option value="item1">자제 1</option>
+                <option value="item2">자제 2</option>
+                <option value="item3">자제 3</option>
+                <option value="item4">자제 4</option>
+            </select>
+        </div>
+    </div>
+    <div class="pattern_img">
+        <img src="https://th.bing.com/th/id/OIP.t05PSmPFrOFlqy3FxlkrhQHaGU?pid=ImgDet&rs=1">
+        <img src="https://th.bing.com/th/id/OIP.t05PSmPFrOFlqy3FxlkrhQHaGU?pid=ImgDet&rs=1">
+        <img src="https://th.bing.com/th/id/OIP.t05PSmPFrOFlqy3FxlkrhQHaGU?pid=ImgDet&rs=1">
+        <img src="https://th.bing.com/th/id/OIP.t05PSmPFrOFlqy3FxlkrhQHaGU?pid=ImgDet&rs=1">
+        <img src="https://th.bing.com/th/id/OIP.t05PSmPFrOFlqy3FxlkrhQHaGU?pid=ImgDet&rs=1">
+    </div>
+</div>
+<!--업체별 자제패턴 팝업창 끝-->
+</body>
+<script layout:fragment="script" type='text/javascript'>
+// 썸머노트 시작
+$(document).ready(function() {
+      $('#summernote').summernote({
+        placeholder: '내용을 적어주세요',
+        tabsize: 2,
+        height: 400,
+        callbacks: {	//여기 부분이 이미지를 첨부하는 부분
+					onImageUpload : function(files) {
+						uploadSummernoteImageFile(files[0],this);
+					},
+					onPaste: function (e) {
+						var clipboardData = e.originalEvent.clipboardData;
+						if (clipboardData && clipboardData.items && clipboardData.items.length) {
+							var item = clipboardData.items[0];
+							if (item.kind === 'file' && item.type.indexOf('image/') !== -1) {
+								e.preventDefault();
+							}
+						}
+					}
+				}
+      });
+    function autoSave() {
+        var content = $('#summernote').summernote('code');
+        console.log(content); // Summernote 작성내용 콘솔에 출력 (확인용)
+        $('.input_content').val(content);
+    }
+     $('#summernote').on('summernote.keyup', function() {
+        autoSave(); // 타이핑할 때마다 자동으로 저장
+    });
+});
+
+// 채팅창 움직이기용 시작
+const draggableElementChat = document.querySelector('.draggable_chat');
+let isDraggingChat = false;
+let offsetXChat = 0;
+let offsetYChat = 0;
+
+draggableElementChat.addEventListener('mousedown', function(event) {
+  isDraggingChat = true;
+  offsetXChat = event.clientX - draggableElementChat.getBoundingClientRect().left;
+  offsetYChat = event.clientY - draggableElementChat.getBoundingClientRect().top;
+});
+
+document.addEventListener('mousemove', function(event) {
+  if (isDraggingChat) {
+    const x = event.clientX - offsetXChat;
+    const y = event.clientY - offsetYChat;
+    draggableElementChat.style.left = x + 'px';
+    draggableElementChat.style.top = y + 'px';
+  }
+});
+
+document.addEventListener('mouseup', function() {
+  isDraggingChat = false;
+});
+// 채팅창 움직이기 끝
+
+
+// 채팅창 종료혹은 숨김처리 시작
+const chatCloseButton = document.getElementById("chat_close");
+chatCloseButton.addEventListener('click',()=>{
+  draggableElementChat.style.display= "none"
+})
+// 채팅창 종료혹은 숨김처리 끝
+
+
+//챗팅창 켜기 시작
+const globalChatOpen = document.getElementById("global_chat_open");
+globalChatOpen.addEventListener('click',()=>{
+  draggableElementChat.style.display = "block"
+})
+// 채팅창켜기 끝
+
+
+
+//색온도 시작
+// 색온도 움직이기 시작
+const draggableElementComparison = document.querySelector('.draggable_comparison');
+let isDraggingComparison = false;
+let offsetXComparison = 0;
+let offsetYComparison = 0;
+draggableElementComparison.addEventListener('mousedown', function(event) {
+  isDraggingComparison = true;
+  offsetXComparison = event.clientX - draggableElementComparison.getBoundingClientRect().left;
+  offsetYComparison = event.clientY - draggableElementComparison.getBoundingClientRect().top;
+});
+document.addEventListener('mousemove', function(event) {
+  if (isDraggingComparison) {
+    const x = event.clientX - offsetXComparison;
+    const y = event.clientY - offsetYComparison;
+    draggableElementComparison.style.left = x + 'px';
+    draggableElementComparison.style.top = y + 'px';
+  }
+});
+document.addEventListener('mouseup', function() {
+  isDraggingComparison = false;
+});
+// 색온도 움직이기 끝
+// 색온도 종료혹은 숨김처리 시작
+const comparisonCloseButton = document.getElementById("comparison_close");
+comparisonCloseButton.addEventListener('click',()=>{
+  draggableElementComparison.style.display= "none"
+})
+// 색온도 종료혹은 숨김처리 끝
+//색온도 켜기 시작
+const ComparisonOpen = document.getElementById("comparison_open");
+ComparisonOpen.addEventListener('click',()=>{
+  draggableElementComparison.style.display = "block"
+})
+// 색온도켜기 끝
+//색온도 버튼
+function toggleColor(colorNumber) {
+  var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  var selectedCheckbox = checkboxes[colorNumber - 1];
+  var isChecked = selectedCheckbox.checked;
+
+  checkboxes.forEach(function (checkbox, index) {
+    if (index !== colorNumber - 1) {
+      checkbox.checked = false;
+    }
+  });
+
+  var currentTemperatureElement = document.getElementById('currentTemperature');
+  currentTemperatureElement.textContent = isChecked ? selectedCheckbox.nextElementSibling.textContent : '';
+
+  var comparisonImg = document.querySelector('.comparison_img');
+
+  if (isChecked) {
+    if (colorNumber === 1) {
+      comparisonImg.classList.add('overlay1');
+      comparisonImg.classList.remove('overlay2');
+      comparisonImg.classList.remove('overlay3');
+    }
+    else if (colorNumber === 2) {
+      comparisonImg.classList.remove('overlay1');
+      comparisonImg.classList.add('overlay2');
+      comparisonImg.classList.remove('overlay3');
+    }
+    else if (colorNumber === 3) {
+      comparisonImg.classList.remove('overlay1');
+      comparisonImg.classList.remove('overlay2');
+      comparisonImg.classList.add('overlay3');
+    }
+  }
+  else {
+    comparisonImg.classList.remove('overlay1');
+    comparisonImg.classList.remove('overlay2');
+    comparisonImg.classList.remove('overlay3');
+  }
+}
+// 색온도 버튼 끝
+
+
+//색온도 시작 끝
+
+// 인테리어 패턴 움직이기  시작
+const draggableElementContinence = document.querySelector('.draggable_continence');
+let isDraggingPop = false;
+let offsetXPop = 0;
+let offsetYPop = 0;
+
+draggableElementContinence.addEventListener('mousedown', function(event) {
+  isDraggingPop = true;
+  offsetXPop = event.clientX - draggableElementContinence.getBoundingClientRect().left;
+  offsetYPop = event.clientY - draggableElementContinence.getBoundingClientRect().top;
+});
+
+document.addEventListener('mousemove', function(event) {
+  if (isDraggingPop) {
+    const x = event.clientX - offsetXPop;
+    const y = event.clientY - offsetYPop;
+    draggableElementContinence.style.left = x + 'px';
+    draggableElementContinence.style.top = y + 'px';
+  }
+});
+
+document.addEventListener('mouseup', function() {
+  isDraggingPop = false;
+});
+// 인테리어 패턴  움직이기 끝
+//인테리어 패턴 켜기 시작
+const ContinenceOpen = document.getElementById("continence_open");
+ContinenceOpen.addEventListener('click',()=>{
+  draggableElementContinence.style.display = "block"
+})
+// 인테리어 패턴켜기 끝
+// 인테리어 패턴 숨김처리 시작
+const popupContinenceCloseButton = document.getElementById("continence_close");
+popupContinenceCloseButton.addEventListener('click',()=>{
+  draggableElementContinence.style.display= "none"
+})
+// 인테리어 패턴 숨김처리 끝
+// 인테리어 패턴  종료혹은 숨김처리 끝
+
+//검색과 링크 보여주는 시작
+ const page_elements = document.getElementsByClassName("page-link");
+    Array.from(page_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            document.getElementById('page').value = this.dataset.page;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    const btn_search = document.getElementById("btn_search");
+    btn_search.addEventListener('click', function() {
+        document.getElementById('kw').value = document.getElementById('search_kw').value;
+        document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+        document.getElementById('searchForm').submit();
+    });
+//검색과 링크 보여주는 끝
+
+</script>
+</html>
+

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+  <!-- sbb CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{/Login/id_find.css}">
+  <title>방게!</title>
+</head>
+<body>
+<div class = "all_signup_box">
+  <div class=board_head>
+    <div class=board_tap>
+      <a class="logo" th:href="@{/UserBoard/main}">
+        <div>
+          <p>방게</p>
+          <p>방구석인테리어 게시판</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 로그인박스 구현 시작-->
+  <div class="sign-box">
+    <h2>아이디 찾기</h2>
+<!--id는 필요없을수있음-->
+    <form th:action="@{/send-mail/id}" th:object="${emailPostDto}" method="post">
+
+      <div class="user-box_sign">
+        <input th:field="*{email}" type="email" name="email" required="">
+        <label for="email">찾는 아이디의 이메일</label>
+      </div>
+      <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+      <button type="submit">
+        <span>조회하기</span>
+      </button>
+    </form>
+  </div>
+<!--  백업용-->
+<!--  <div class="sign-box">-->
+<!--    <h2>아이디 찾기</h2>-->
+<!--    <form th:action="@{/user/id_find}" method="post">-->
+<!--      <div class="user-box_sign">-->
+<!--        <input type="email" name="email" required="">-->
+<!--        <label>찾는 아이디의 이메일</label>-->
+<!--      </div>-->
+<!--      <button type="submit">-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--        <span></span>-->
+<!--        조회하기-->
+<!--      </button>-->
+<!--    </form>-->
+<!--  </div>-->
+</div>
+
+<!--업체별 자제패턴 팝업창 끝-->
+
+<script layout:fragment="script" type='text/javascript'>
+</script>
+</body>
+</html>
+

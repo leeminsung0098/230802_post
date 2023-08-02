@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
+<body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/lang/summernote-ko-KR.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.css" rel="stylesheet">
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+<th:block layout:fragment="content"></th:block>
+<!--<th:block layout:fragment="createFormSummerNote">-->
+<!--    <form th:replace="~{createFormSummerNoteDiv :: createFormSummerNoteFragmentDiv}"></form>-->
+<!--    &lt;!&ndash;        <script th:replace="~{createFormSummerNoteScript :: createFormSummerNoteFragmentScript}"></script>&ndash;&gt;-->
+<!--</th:block>-->
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+
+<script th:replace="~{chatScript :: chatScriptFragment}"></script>
+<!-- 자바스크립트 Start -->
+<th:block layout:fragment="script"></th:block>
+<!-- 자바스크립트 End -->
+
+
+
+
+
+</body>
+</html>

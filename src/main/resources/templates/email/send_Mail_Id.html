@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div style="margin:100px;">
+  <h1> 안녕하세요.</h1>
+  <h1> 방구석 게시판 방게입니다.</h1>
+  <br>
+  <p> 등록된 아이디 </p>
+  <br>
+
+  <div align="center" style="border:1px solid black; font-family:verdana;">
+    <h3 style="color:blue">등록된 아이디는 다음과 같습니다. </h3>
+      <li style="text-decoration: none;">
+        <!-- user 객체의 필드를 출력합니다. -->
+        <span th:text="${user.loginId}"></span>
+      </li>
+  </div>
+  <br/>
+</div>
+
+
+</body>
+</html>

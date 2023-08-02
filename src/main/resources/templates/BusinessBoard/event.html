@@ -1,0 +1,247 @@
+<!doctype html>
+<html layout:decorate="~{layout}"
+      lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/userBoard_businessBoard/event.css}">
+    <title>방게!</title>
+</head>
+<body layout:fragment="content">
+<!-- 최상단을 표시하기위한 div -->
+<div id="scrolltop"></div>
+<div class="form">
+    <div class="form">
+        <!--  머리부분 로그인 회원가입 등 시작-->
+        <div class=board_head>
+            <div class=board_tap>
+                <a class="logo" th:href="@{/UserBoard/main}">
+                    <div>
+                        <p>방게</p>
+                        <p>방구석인테리어 게시판 </p>
+                    </div>
+                </a>
+                <a class="logo_base" th:href="@{/UserBoard/main}">
+                    <div>
+                        <p>유저게시판</p>
+                    </div>
+                </a>
+                <a class="logo_base select" th:href="@{/BusinessBoard/home}">
+                    <div>
+                        <p>사업자 게시판</p>
+                    </div>
+                </a>
+                <a class="logo_base" th:href="@{/Store/}">
+                    <div>
+                        <p>스토어</p>
+                    </div>
+                </a>
+            </div>
+            <div class="board_login" sec:authorize="isAnonymous()">
+                <a  class="login"   th:href="@{/user/login}">
+                    <div>
+                        <p >로그인</p>
+                    </div>
+                </a>
+                /
+                <a th:href="@{/user/Initiation_General}" class="signup">
+                    <div>
+                        <p>회원가입</p>
+                    </div>
+                </a>
+            </div>
+            <div class="board_login" sec:authorize="isAuthenticated()">
+                <!--        sec:authorize="isAuthenticated()" 로그인 성공시 나오게 하는 코드       -->
+                <a  class="login" th:href="@{/user/logout}">
+                    <div>
+                        <p >로그아웃</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <!--  머리부분 로그인 회원가입 등 끝-->
+        <!--  상단 nav바 시작-->
+        <nav class="top_nav">
+            <a  th:href="@{/BusinessBoard/home}">
+                <div>
+                    <p>홈</p>
+                </div>
+            </a>
+            <a th:href="@{/BusinessBoard/part}">
+                <div>
+                    <p>부분공사</p>
+                </div>
+            </a>
+            <a th:href="@{/BusinessBoard/integral}">
+                <div>
+                    <p>전체공사</p>
+                </div>
+            </a>
+            <a th:href="@{/BusinessBoard/event}"  class="select">
+                <div>
+                    <p>이벤트</p>
+                </div>
+            </a>
+            <a th:href="@{/BusinessBoard/home}">
+                <div>
+                    <p>업체퀵링크
+                    </p>
+                    <!--                <ul class = "qik">-->
+                    <!--                    <li class="qik_in"><a th:href="@{/BusinessBoard/home}"> 업체1 </a></li>-->
+                    <!--                    <li class="qik_in"><a th:href="@{/BusinessBoard/home}"> 업체2 </a></li>-->
+                    <!--                    <li class="qik_in"><a th:href="@{/BusinessBoard/home}"> 업체3 </a></li>-->
+                    <!--                </ul>-->
+                </div>
+            </a>
+        </nav>
+        <!--  상단 nav바 끝 -->
+        <!-- 이벤트 게시판 구현 시작-->
+        <div class="sflex">
+            <h3>이벤트 게시판</h3>
+            <a class="event_up" href="#">이벤트 등록</a>
+        </div>
+        <div class="sevnt">
+            <div class="sevnt_1">
+                <div class="event_board">
+                    <a href="#">
+                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjExMTZfMTAy/MDAxNjY4NTY4MzM3ODAy.2i_36x_41xJGYzjfaPrMiG4yg5hfjraX-C9s4psMIbUg.LkQCcvMUaI3hY3xQNC6MOhOvn8NtV-R8Hzg4xt31naIg.PNG.lxcps/4.PNG?type=w800">
+                        **년**월**일 까지</a>
+                </div>
+                <div class="event_board">
+                    <a href="#">
+                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjExMTZfMTAy/MDAxNjY4NTY4MzM3ODAy.2i_36x_41xJGYzjfaPrMiG4yg5hfjraX-C9s4psMIbUg.LkQCcvMUaI3hY3xQNC6MOhOvn8NtV-R8Hzg4xt31naIg.PNG.lxcps/4.PNG?type=w800">
+                        **년**월**일 까지</a>
+                </div>
+                <div class="event_board">
+                    <a href="#">
+                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjExMTZfMTAy/MDAxNjY4NTY4MzM3ODAy.2i_36x_41xJGYzjfaPrMiG4yg5hfjraX-C9s4psMIbUg.LkQCcvMUaI3hY3xQNC6MOhOvn8NtV-R8Hzg4xt31naIg.PNG.lxcps/4.PNG?type=w800">
+                        **년**월**일 까지</a>
+                </div>
+            </div>
+            <div class="sevnt_2">
+                <div class="event_board">
+                    <a href="#">
+                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjExMTZfMTAy/MDAxNjY4NTY4MzM3ODAy.2i_36x_41xJGYzjfaPrMiG4yg5hfjraX-C9s4psMIbUg.LkQCcvMUaI3hY3xQNC6MOhOvn8NtV-R8Hzg4xt31naIg.PNG.lxcps/4.PNG?type=w800">
+                        **년**월**일 까지</a>
+                </div>
+                <div class="event_board">
+                    <a href="#">
+                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjExMTZfMTAy/MDAxNjY4NTY4MzM3ODAy.2i_36x_41xJGYzjfaPrMiG4yg5hfjraX-C9s4psMIbUg.LkQCcvMUaI3hY3xQNC6MOhOvn8NtV-R8Hzg4xt31naIg.PNG.lxcps/4.PNG?type=w800">
+                        **년**월**일 까지</a>
+                </div>
+                <div class="event_board">
+                    <a href="#">
+                        <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjExMTZfMTAy/MDAxNjY4NTY4MzM3ODAy.2i_36x_41xJGYzjfaPrMiG4yg5hfjraX-C9s4psMIbUg.LkQCcvMUaI3hY3xQNC6MOhOvn8NtV-R8Hzg4xt31naIg.PNG.lxcps/4.PNG?type=w800">
+                        **년**월**일 까지</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--    최하단을 표시하기위한 -->
+<div id="scrollbottom"></div>
+<!--이벤트 게시판 구현 끝-->
+
+<!--우측 네비게이션용 시작-->
+<div class="popup_body">
+    <nav class="popup_nav">
+
+        <a href="#scrolltop" rel="nofollow">
+            <button class="nav_button nav_top">
+                TOP
+            </button>
+        </a>
+
+        <button class="nav_button" id="global_chat_open" ype="buttont">
+            전체 채팅
+        </button>
+
+        <button class="nav_button" >유저<p>게시판 </button>
+        <button class="nav_button" >사업자<p>게시판 </button>
+        <button class="nav_button" >스토어 </button>
+        <button class="nav_button" >개인 채팅 </button>
+        <a href="#scrollbottom" rel="nofollow">
+            <button class="nav_button nav_down">
+                DOWN
+            </button>
+        </a>
+
+    </nav>
+</div>
+<!--우측 네비게이션용 끝  -->
+
+<!--전체 챗화면 시작 스크립트 사용유의-->
+<div class="draggable_chat">
+    <!--  상단바     -->
+    <div class="chat_top_var">
+        <p>전체채팅창</p>
+        <button id="chat_close" type="button">X</button>
+    </div>
+    <!--  하단 챗부분 전송과 채팅창    -->
+    <div class="chat_main">
+        <div class="chat_body" id ="msgArea">
+        </div>
+
+        <div class="input_body">
+            <input type="text" id="msg">
+            <button type="button" id="button-send">전송</button>
+        </div>
+    </div>
+
+</div>
+<!--전체 챗화면 끝 스크립트 사용유의-->
+</body>
+<script layout:fragment="script" type='text/javascript'>
+    // 채팅창 움직이기용 시작
+const draggableElementChat = document.querySelector('.draggable_chat');
+let isDraggingChat = false;
+let offsetXChat = 0;
+let offsetYChat = 0;
+
+draggableElementChat.addEventListener('mousedown', function(event) {
+  isDraggingChat = true;
+  offsetXChat = event.clientX - draggableElementChat.getBoundingClientRect().left;
+  offsetYChat = event.clientY - draggableElementChat.getBoundingClientRect().top;
+});
+
+document.addEventListener('mousemove', function(event) {
+  if (isDraggingChat) {
+    const x = event.clientX - offsetXChat;
+    const y = event.clientY - offsetYChat;
+    draggableElementChat.style.left = x + 'px';
+    draggableElementChat.style.top = y + 'px';
+  }
+});
+
+document.addEventListener('mouseup', function() {
+  isDraggingChat = false;
+});
+// 채팅창 움직이기 끝
+
+
+
+// 채팅창 종료혹은 숨김처리 시작
+const chatCloseButton = document.getElementById("chat_close");
+chatCloseButton.addEventListener('click',()=>{
+  draggableElementChat.style.display= "none"
+})
+// 채팅창 종료혹은 숨김처리 끝
+
+
+//챗팅창 켜기 시작
+const globalChatOpen = document.getElementById("global_chat_open");
+globalChatOpen.addEventListener('click',()=>{
+  draggableElementChat.style.display = "block"
+})
+// 채팅창켜기 끝
+
+
+
+</script>
+</html>
+

@@ -1,0 +1,78 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.1'
+	id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'javaproject'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
+	implementation 'com.querydsl:querydsl-jpa'
+
+
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
+
+//로그인관련
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+//	스프링 시큐리티 설치 로그인 기타등등 차단 나중에 켜야함
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE'
+//	testImplementation 'org.springframework.security:spring-security-test'
+// scss 추가 버그문제로 사용불가
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	implementation 'org.webjars.npm:node-sass:4.14.1'
+
+//	마크다운설치
+	implementation 'org.commonmark:commonmark:0.21.0'
+
+
+	// 메일보내기
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+
+	//웹 소켓 사용
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	//썸네일 이미지 처리
+	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
+	implementation group: 'net.coobird', name: 'thumbnailator', version: '0.4.8'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	runtimeOnly 'org.springframework.boot:spring-boot-starter-tomcat'
+
+
+	//test
+	implementation 'com.google.code.gson:gson:2.8.7'
+	// Apache Commons IO 의존성 추가
+	implementation 'commons-io:commons-io:2.11.0'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

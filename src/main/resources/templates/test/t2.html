@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+<!--    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+    <!-- sbb CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/userBoard/.css}">
+    <title>방게!</title>
+</head>
+<body>
+<table class = "user_board">
+    <thead class="user_board_title">
+    <tr>
+        <th >번호</th>
+        <th><a th:href="@{/test/t2(attribute='title')}" >제목</a></th>
+        <th><a th:href="@{/test/t2(attribute='author.id')}" >글쓴이</a></th>
+        <th><a th:href="@{/test/t2(attribute='createDate')}" >등록일</a></th>
+        <th><a th:href="@{/test/t2(attribute='views')}"  >조회수</a></th>
+        <th><a th:href="@{/test/t2(attribute='voter')}"  >추천수</a></th>
+    </tr>
+    </tr>
+    <tr>
+        <th>
+            <hr style="border: solid 1px rgb(180, 180, 180);
+                               margin-top :10px;
+                               margin-bottom : 10px;">
+        </th>
+        <th>
+            <hr style="border: solid 1px rgb(180, 180, 180);
+                               margin-top :10px;
+                               margin-bottom : 10px;">
+        </th>
+        <th>
+            <hr style="border: solid 1px rgb(180, 180, 180);
+                               margin-top :10px;
+                               margin-bottom : 10px;">
+        </th>
+        <th>
+            <hr style="border: solid 1px rgb(180, 180, 180);
+                               margin-top :10px;
+                               margin-bottom : 10px;">
+        </th>
+        <th>
+            <hr style="border: solid 1px rgb(180, 180, 180);
+                               margin-top :10px;
+                               margin-bottom : 10px;">
+        </th>
+        <th>
+            <hr style="border: solid 1px rgb(180, 180, 180);
+                               margin-top :10px;
+                               margin-bottom : 10px;">
+        </th>
+    </tr>
+    <tr th:each="board, loop : ${paging}">
+        <!--            앞의 board 그냥 변수명 주의-->
+        <!--            횟수-->
+        <th th:text="${board.id}"></th>
+        <!--            제목-->
+        <th>
+            <a th:href="@{|/UserBoard/free_Board_Detail/${board.id}|}"
+               class = "chat_list"
+               th:text="${board.title}"
+            ></a>
+        </th>
+        <!--            글쓴이-->
+        <th >
+            <span th:if="${board.author != null}" th:text="${board.author?.nickname}">사용자 없음</span>
+        </th>
+        <!--            등록일-->
+        <th >
+
+            <span th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm') ?: '없음'}"></span>
+        </th>
+        <!--            조회수-->
+        <th >
+            <span th:if="${board.views != null}" th:text="${board.views}">없는조회수</span>
+        </th>
+        <!--            추천수-->
+        <th >
+            <span th:text="${#lists.size(board.voter)}"></span>
+        </th>
+    </tr>
+    </thead>
+    <tbody class= "test" id="user_board_data">
+</table>
+
+
+<!--업체별 자제패턴 팝업창 끝-->
+
+<script layout:fragment="script" type='text/javascript'>
+</script>
+</body>
+</html>
+

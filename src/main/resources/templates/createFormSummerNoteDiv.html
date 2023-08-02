@@ -1,0 +1,59 @@
+<form  th:fragment="createFormSummerNoteFragmentDiv" xmlns:th="http://www.w3.org/1999/xhtml" th:object="${boardCreateForm}" method="post">
+    <!-- Bootstrap CSS -->
+    <!--    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <input type="hidden" th:name="${parameterName}" th:value="${token}"/>
+        <!-- 여기서부터 제목 -->
+        <div>
+            <input type="text"
+                   th:field="*{title}"
+                   class="input_title"
+                   placeholder="제목을 입력하세요"/>
+        </div>
+        <br>
+        <hr style="border: solid 1px rgb(180, 180, 180);">
+        <br>
+        <!-- 여기서부터 바디시작 -->
+        <div>
+            <input id="summernote"
+                   class="input_content"/>
+
+            <input type="text"
+                   th:field="*{content}"
+                   class="input_content"
+                   placeholder="나중에 api로 대체될예정"/>
+        </div>
+        <br>
+        <hr style="border: solid 1px black;">
+
+        <!--게시물  저장버튼 구현 시작-->
+        <div class="button_search frame">
+            <input type="submit" value="저장" class="custom-btn btn-3">
+        </div>
+
+        <!--게시물  버튼 및 찾기 구현 끝-->
+        <!--  작업끝 -->
+    <script type='text/javascript'>
+        // 썸머노트 시작
+        $(document).ready(function() {
+              $('#summernote').summernote({
+                placeholder: '내용을 적어주세요',
+                tabsize: 2,
+                height: 400
+              });
+            function autoSave() {
+                var content = $('#summernote').summernote('code');
+                console.log(content); // Summernote 작성내용 콘솔에 출력 (확인용)
+                $('.input_content').val(content);
+            }
+             $('#summernote').on('summernote.keyup', function() {
+                autoSave(); // 타이핑할 때마다 자동으로 저장
+            });
+        });
+        // 썸머노트 끝
+
+    </script>
+</form>

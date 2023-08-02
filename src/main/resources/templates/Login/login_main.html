@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+<!--  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+  <!-- sbb CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{/Login/login.css}">
+  <title>방게!</title>
+</head>
+<body>
+<div class = "all_login_box">
+  <div class=board_head>
+    <div class=board_tap>
+      <a class="logo"  th:href="@{/UserBoard/main}">
+        <div>
+          <p>방게</p>
+          <p>방구석인테리어 게시판</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 로그인박스 구현 시작-->
+  <div class="login-box">
+    <h2>Login</h2>
+    <form th:action="@{/user/login}" method="post">
+      <div th:if="${param.error}">
+        <div>
+          사용자ID 또는 비밀번호를 확인해 주세요.
+        </div>
+      </div>
+      <div class="user-box">
+        <input type="text" name="username" required="">
+        <label for="loginId">ID</label>
+      </div>
+      <div class="user-box">
+        <input type="password" name="password" required="">
+        <label for="password">PW</label>
+      </div>
+      <button class = "submitButton" type="submit">
+        <span>Submit</span>
+      </button>
+    </form>
+  </div>
+  <div class ="find_info">
+    <p><a th:href="@{/user/Initiation_General}">회원가입</a></p>
+    <p><a th:href="@{/user/id_find}">아이디찾기</a></p>
+    <p><a th:href="@{/user/Password_Find}">비밀번호찾기</a></p>
+  </div>
+
+<!--  <form th:action="@{/user/code/1}" method="post">-->
+<!--  /oauth2/authorization/google고정주소 -->
+  <a href ="/oauth2/authorization/google" class="googleButton"type="submit">
+    <img src="/image/view?file_name=btn_google_nomal.png"/>
+  </a>
+
+</div>
+<!-- 로그인박스 구현 끝-->
+<!--업체별 자제패턴 팝업창 끝-->
+<script layout:fragment="script" type='text/javascript'>
+
+</script>
+</body>
+</html>
+

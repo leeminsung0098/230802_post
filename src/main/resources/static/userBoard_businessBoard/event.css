@@ -1,0 +1,380 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&display=swap");
+* {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: black;
+}
+
+.select > p {
+  border-bottom: 4px solid brown;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: auto;
+  color: brown;
+}
+
+.select > div > p {
+  border-bottom: 4px solid brown;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: auto;
+  color: brown;
+}
+
+.select > p {
+  border-bottom: 4px solid brown;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: auto;
+  color: brown;
+}
+
+.board_head {
+  display: flex;
+}
+.board_head .board_tap {
+  flex-grow: 5;
+  align-content: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.board_head .board_tap .logo p {
+  color: brown;
+}
+.board_head .board_tap .logo p:nth-child(1) {
+  font-size: 40px;
+}
+.board_head .board_tap .logo p:nth-child(2) {
+  font-size: 10px;
+  padding-left: 10px;
+}
+.board_head .board_tap .logo_base {
+  font-size: 20px;
+}
+.board_head .board_login {
+  flex-grow: 2;
+  align-content: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+  align-items: center;
+}
+.board_head .board_login a {
+  margin: 10px;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 1200px;
+}
+
+.top_nav {
+  display: flex;
+  margin: 10px;
+  margin-bottom: 50px;
+}
+
+.top_nav p {
+  text-align: center;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+.top_nav a {
+  width: 200px;
+  padding: 10px;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+/* 메인 팁 이미지 시작  */
+.tip_board {
+  border-radius: 10px;
+  display: flex;
+  height: 500px;
+  /* 크기조정 이부분 flex를 사용해서 바꾸어야함
+  */
+  /*
+  .right_tip .left_button > button,
+  .right_tip .right_button > button {
+    position: absolute;
+
+    z-index: 99999;
+    border-radius: 50%;
+    font-size: 40px;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    transition: all 1s;
+    background-color: white;
+    border-color: white;
+  }
+  img:hover {
+    transform: scale(1.05);
+  }
+  .right_tip:hover .left_button > button,
+  .right_tip:hover .right_button > button
+  {
+    opacity: 1;
+  }
+
+ */
+}
+.tip_board div {
+  margin: 10px;
+}
+.tip_board .flexCenter {
+  display: flex;
+  justify-content: center;
+}
+.tip_board .right_tip {
+  justify-content: center;
+  position: relative;
+  flex-grow: 5;
+}
+.tip_board .left_tip {
+  justify-content: center;
+  position: relative;
+  flex-grow: 8;
+}
+.tip_board .left_tip .left_button > button,
+.tip_board .left_tip .right_button > button {
+  position: absolute;
+  z-index: 99999;
+  border-radius: 50%;
+  font-size: 40px;
+  width: 80px;
+  height: 80px;
+  opacity: 0;
+  transition: all 1s;
+  background-color: white;
+  border-color: white;
+}
+.tip_board img:hover {
+  transform: scale(1.05);
+}
+.tip_board .left_tip:hover .left_button > button,
+.tip_board .left_tip:hover .right_button > button {
+  opacity: 1;
+}
+.tip_board .left_button > button {
+  top: 50%;
+  transform: translateY(-50%);
+  left: -8%;
+}
+.tip_board .right_button > button {
+  top: 50%;
+  transform: translateY(-50%);
+  right: -8%;
+}
+
+/* 메인 팁 이미지 끝 */
+.sflex {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*이벤트 게시판 구현 시작*/
+.sflex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.sevnt {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 2%;
+}
+
+.sevnt_2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.event_board {
+  width: calc(80% - 10px);
+  /* 이미지가 왼쪽에 세로로 3개, 오른쪽에 세로로 3개 나오게 하기 위한 너비 조정 */
+  margin-bottom: 40px;
+}
+
+.event_board img {
+  width: 100%;
+  /* 이미지를 부모 요소에 맞게 가로로 늘리기 */
+  height: auto;
+  /* 세로 크기는 자동으로 조정 */
+}
+
+.event_board {
+  width: calc(80% - 10px);
+  margin-bottom: 40px;
+  position: relative;
+  /* 이벤트 게시판 컨테이너에 position 속성 추가 */
+}
+
+.event_board img {
+  width: 100%;
+  height: auto;
+}
+
+.stext {
+  display: inline-block;
+  align-content: right;
+}
+
+.event_up:hover, a:hover p {
+  color: brown;
+}
+
+.popup_body {
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  margin-top: 100px;
+  position: sticky;
+  height: 0;
+  top: 0;
+}
+.popup_body .popup_nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  padding: 10px;
+  position: absolute;
+  flex-direction: column;
+  margin: 50px;
+  margin-top: 100px;
+  background-color: rgba(235, 180, 150, 0.7);
+  border-radius: 100px;
+  box-shadow: 1px 2px 5px black;
+}
+.popup_body a{
+    width:100%;
+}
+.popup_body .nav_button {
+  transition: all 0.2s;
+  padding-bottom: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  font-weight: 600;
+  transition: all 0.8s;
+  text-align: center;
+  position: relative;
+  display: block;
+  border: 0px;
+  padding: 0;
+  width: 100%;
+  float: left;
+  box-shadow: 0px 0px 0px 0px greenyellow;
+}
+.popup_body .nav_button:hover {
+  box-shadow: 0px 0px 0px 10px lightcoral;
+}
+.popup_body .nav_top, .popup_body .nav_down {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.popup_body .nav_down {
+  margin-bottom: 0;
+}
+
+.draggable_chat {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  height: 500px;
+  cursor: move;
+  background-color: rgba(255, 180, 150, 0.7);
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: 1px 2px 5px black;
+  z-index: 999;
+}
+.draggable_chat .chat_top_var {
+  text-align: right;
+  background-color: white;
+  padding: 4px;
+  margin: 5px;
+  padding-right: 10px;
+  margin-bottom: 5px;
+}
+.draggable_chat .chat_body {
+  margin: 5px;
+  padding: 20px;
+  background-color: white;
+  height: auto;
+}
+.draggable_chat .chat_top_var > button {
+  width: 20px;
+  height: 20px;
+}
+.draggable_chat .chat_main {
+  display: flex;
+  height: 460px;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.draggable_chat .chat_main .chat_body {
+  padding: 5px;
+  flex-grow: 110;
+  justify-content: flex-end;
+}
+.draggable_chat .chat_main .input_body {
+  justify-content: space-between;
+  display: flex;
+  flex-grow: 1;
+  padding: 10px;
+}
+.draggable_chat .chat_main .input_body > input {
+  flex-grow: 8;
+}
+.draggable_chat .chat_main .input_body > button {
+  margin-left: 10px;
+  flex-grow: 2;
+  padding: 5px;
+}
+.draggable_chat .chat_top_var {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  justify-content: space-between;
+}
+.draggable_chat .chat_top_var > button {
+  background: #6009f0;
+  color: white;
+  background: linear-gradient(0deg, gray 0%, black 100%);
+  border: none;
+}
+.draggable_chat .chat_top_var > button:before {
+  height: 0%;
+  width: 2px;
+}
+.draggable_chat .chat_top_var > button:hover {
+  box-shadow: 4px 4px 6px 0 rgba(255, 255, 255, 0.5), -4px -4px 6px 0 rgba(116, 125, 136, 0.5), inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2), inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+}

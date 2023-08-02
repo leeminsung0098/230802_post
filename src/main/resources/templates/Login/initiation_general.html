@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+<!--  <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">-->
+  <!-- sbb CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{/Login/initiation.css}">
+  <title>방게!</title>
+</head>
+<body>
+
+<div class = "all_signup_box">
+  <div class=board_head>
+    <div class=board_tap>
+      <a class="logo"  th:href="@{/UserBoard/main}">
+        <div>
+          <p>방게</p>
+          <p>방구석인테리어 게시판</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- 로그인박스 구현 시작-->
+  <div class="sign-box">
+    <h2>개인 회원가입</h2>
+    <form th:action="@{/user/Initiation_General}" th:object="${userCreateForm}" method="post">
+      <div class="user-box_sign t">
+        <input th:field="*{loginId}" type="text" name="loginId" id="loginId" required="" >
+        <label class="id-check_box form-label" for="loginId">아이디 </label>
+        <button class="id-check" type="button" onclick="idCheck()" >확인</button>
+      </div>
+      <div class="user-box_sign">
+        <input th:field="*{nickname}" type="text" name="nickname" required="" >
+        <label class="id-check_box form-label" for="nickname">닉네임 </label>
+      </div>
+      <div class="user-box_sign">
+        <input type="password" name="password1" required="" th:field="*{password1}">
+        <label for="password1">비밀번호</label>
+      </div>
+      <div class="user-box_sign">
+        <input type="password" name="password2" required="" th:field="*{password2}">
+        <label for="password2">비밀번호 재확인</label>
+      </div>
+      <div class="user-box_sign">
+        <input type="text" name="email" required="" th:field="*{email}">
+        <label for="email">이메일</label>
+      </div>
+      <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <button id="initiation" type="submit"
+                class="btn-primary btn disabled"
+                disabled>
+          <span>가입하기</span>
+        </button>
+
+    </form>
+  </div>
+</div>
+
+<!--업체별 자제패턴 팝업창 끝-->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script layout:fragment="script" type='text/javascript'>
+function idCheck() {
+  const init_Button = document.getElementById('initiation')
+
+ $.ajax({
+    url: "/user/idCheck",
+    type: "post",
+    data: { loginId: $("#loginId").val() },
+
+    dataType:'text',
+    success: function(response) {
+      if (response == "AVAILABLE") {
+        init_Button.className = 'btn-primary btn, brownColor';
+        init_Button.disabled = false;
+        swal("사용 가능한 아이디입니다.", "", "success");
+      }else if (response == "DUPLICATED") {
+        swal("중복된 아이디입니다.", "다른 아이디로 해주세요", "warning");
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>
+
